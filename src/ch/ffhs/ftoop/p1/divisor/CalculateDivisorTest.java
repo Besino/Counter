@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
 
+import divisor.ftoop.CalculateDivisor;
 import student.TestCase;
 
 /**

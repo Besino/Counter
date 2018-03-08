@@ -1,5 +1,8 @@
 package ch.ffhs.ftoop.p1.deadlock;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Aufgabe: Dieses Programm demonstriert einen Deadlock. Lassen Sie dieses
  * Programm mehrfach laufen und schauen Sie, was passiert.
@@ -15,38 +18,44 @@ public class Deadlock {
 	synchronized void doStuff() throws InterruptedException {
 		final Friend alphonse = new Friend("Alphonse");
 		final Friend gaston = new Friend("Gaston");
-		Thread gastonThread = new Thread(new Runnable() {
+		final Lock sharedfriends = new ReentrantLock();
+		
+		
+		final Thread gastonThread = new Thread(new Runnable() {
 			synchronized public void run() {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+				
+				synchronized (sharedfriends) {
+					
 				alphonse.bow(gaston);
+				sharedfriends.notifyAll();
+				}
 			}
 		}, "Gaston");
 		
 		
-		Thread alphonseThread = new Thread(new Runnable() {
+		final Thread alphonseThread = new Thread(new Runnable() {
 			synchronized public void run() {
 				
-				gaston.bow(alphonse);
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				synchronized(sharedfriends) 
+				{
+					try {
+						sharedfriends.wait(1);
+						gaston.bow(alphonse);
+					} catch (final InterruptedException e) {
+						Thread.currentThread().interrupt();
+					}
+					
 				}
+			
 			}
 		}, "Alphonse");
 		
 		alphonseThread.start();
 		gastonThread.start();
-
 		alphonseThread.join();
 		gastonThread.join();
-
+	
 	}
 
 	public static void main(String[] args) throws InterruptedException {

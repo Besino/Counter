@@ -25,5 +25,5 @@ public interface SpeicherIf {
 	 * @return
 	 */
 	public boolean isHatWert();
-
+	
 }

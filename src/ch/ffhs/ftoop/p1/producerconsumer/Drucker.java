@@ -16,8 +16,10 @@ public class Drucker extends Thread {
 	public void run() {
 		while (true) {
 			try {
+				synchronized(speicher) {
+				speicher.wait();
 				System.out.print(speicher.getWert() + " ");
-				Thread.sleep(100);
+				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

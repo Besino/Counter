@@ -28,7 +28,20 @@ public class Zaehler extends Thread {
 	 */
 	@Override
 	public void run() {
-		// TODO Implementieren Sie den Zaehler
+		int wert = min;
+		
+			while(wert<=max) {
+			try {
+				synchronized(speicher) {
+				speicher.setWert(wert);
+				speicher.wait();
+				wert++;		
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}}
+		
 	}
-
+	
 }

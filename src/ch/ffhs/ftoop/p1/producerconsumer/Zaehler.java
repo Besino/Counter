@@ -10,9 +10,9 @@ public class Zaehler extends Thread {
 	 * @param s
 	 *            Das Speicherobject, das die aktuelle Zahl haelt.
 	 * @param min
-	 *            Der Startwert für den Zaehler
+	 *            Der Startwert f?r den Zaehler
 	 * @param max
-	 *            Der Endwert für den Zaehler (einschliesslich)
+	 *            Der Endwert f?r den Zaehler (einschliesslich)
 	 * 
 	 */
 	Zaehler(Speicher s, int min, int max) {
@@ -21,27 +21,26 @@ public class Zaehler extends Thread {
 		this.min = min;
 	}
 
-	/**
-	 * Diese Run Methode zählt den Wert in Speicher hoch - von min bis max
-	 * (einschliesslich).
-	 * 
-	 */
+	public int getIntervallSize(){
+	    int intervall = max - min;
+
+	    return(intervall);
+    }
+
+
 	@Override
 	public void run() {
 		int wert = min;
 		
 			while(wert<=max) {
-			try {
-				synchronized(speicher) {
-				speicher.setWert(wert);
-				speicher.wait();
-				wert++;		
-				}
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}}
-		
-	}
-	
+			    synchronized (speicher) {
+                    try {
+                        speicher.setWert(wert);
+                        speicher.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    wert++;
+                }
+            }}
 }

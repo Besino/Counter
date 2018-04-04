@@ -2,7 +2,7 @@ package ch.ffhs.ftoop.p1.producerconsumer;
 
 /**
  * 
- * Der Aufruf benötigt zwei Parameter min und max - der Zaehler beginnt bei min
+ * Der Aufruf ben?tigt zwei Parameter min und max - der Zaehler beginnt bei min
  * zu zaehlen und terminiert bei max.
  * 
  */
@@ -16,7 +16,7 @@ public class ZaehlerDrucker {
 		}
 
 		Speicher s =  new Speicher();
-		Drucker d = new Drucker(s);
+		Drucker d = new Drucker(s, Integer.parseInt(args[0]),Integer.parseInt(args[1]));
 		Zaehler z = new Zaehler(s, Integer.parseInt(args[0]),
 				Integer.parseInt(args[1]));
 

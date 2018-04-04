@@ -2,9 +2,13 @@ package ch.ffhs.ftoop.p1.producerconsumer;
 
 public class Drucker extends Thread {
 	private Speicher speicher;
+	int min;
+	int max;
 
-	Drucker(Speicher s) {
+	Drucker(Speicher s,int min,int max) {
 		this.speicher = s;
+		this.max = max;
+		this.min = min;
 	}
 
 	/**
@@ -14,18 +18,20 @@ public class Drucker extends Thread {
 	 */
 	@Override
 	public void run() {
-		while (true) {
+		int slope = 0;
+		int intervall = max-min;
+		while (slope <= intervall) {
 			try {
-				synchronized(speicher) {
-				speicher.wait();
-				System.out.print(speicher.getWert() + " ");
+				synchronized (speicher){
+					System.out.print(speicher.getWert() + " ");
+					speicher.wait();
 				}
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+			}
+				catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			slope++;
 		}
-
-	}
+			}
 
 }

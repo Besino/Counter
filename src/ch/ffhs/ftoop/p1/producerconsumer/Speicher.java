@@ -11,7 +11,7 @@ public class Speicher implements SpeicherIf {
 		while (!isHatWert()) 
 			wait();
 		hatWert = false;
-		notify();	
+		notify();
 		return wert;
 	}
 	@Override

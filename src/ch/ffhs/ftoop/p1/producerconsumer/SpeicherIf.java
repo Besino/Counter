@@ -3,7 +3,7 @@ package ch.ffhs.ftoop.p1.producerconsumer;
 public interface SpeicherIf {
 
 	/**
-	 * Gibt den aktuellen Wert zurück.
+	 * Gibt den aktuellen Wert zur?ck.
 	 * 
 	 * @return
 	 * @throws InterruptedException
@@ -19,7 +19,7 @@ public interface SpeicherIf {
 	public void setWert(int wert) throws InterruptedException;
 
 	/**
-	 * Gibt true zurück, wenn es einen neuen, noch nicht konsumierten Wert im
+	 * Gibt true zur?ck, wenn es einen neuen, noch nicht konsumierten Wert im
 	 * Objekt hat.
 	 * 
 	 * @return

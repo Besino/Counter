@@ -18,17 +18,17 @@ public class Deadlock {
 	synchronized void doStuff() throws InterruptedException {
 		final Friend alphonse = new Friend("Alphonse");
 		final Friend gaston = new Friend("Gaston");
-		final Lock sharedfriends = new ReentrantLock();
+		final Lock sharedfriend = new ReentrantLock();
 		
 		
 		final Thread gastonThread = new Thread(new Runnable() {
 			synchronized public void run() {
 				
 				
-				synchronized (sharedfriends) {
+				synchronized (sharedfriend) {
 					
 				alphonse.bow(gaston);
-				sharedfriends.notifyAll();
+				sharedfriend.notifyAll();
 				}
 			}
 		}, "Gaston");
@@ -37,10 +37,10 @@ public class Deadlock {
 		final Thread alphonseThread = new Thread(new Runnable() {
 			synchronized public void run() {
 				
-				synchronized(sharedfriends) 
+				synchronized(sharedfriend)
 				{
 					try {
-						sharedfriends.wait(1);
+						sharedfriend.wait(1);
 						gaston.bow(alphonse);
 					} catch (final InterruptedException e) {
 						Thread.currentThread().interrupt();
